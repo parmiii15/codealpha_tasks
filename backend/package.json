@@ -1,0 +1,19 @@
+{
+  "name": "meetly-backend",
+  "version": "1.0.0",
+  "description": "Meetly - video meetings, whiteboard, chat",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.2",
+    "nodemailer": "^10.1.7",
+    "socket.io": "^4.7.5"
+  }
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meetly – Sign in</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="auth-body">
+  <div class="auth-wrap">
+    <section class="auth-hero">
+      <div class="logo big"><span class="logo-mark"><span class="ms">videocam</span></span><span>Meetly</span></div>
+      <h1>Meet, draw and share, all in one call.</h1>
+      <p>Video calls stay on screen while you sketch on the whiteboard, send files and chat. Plan ahead with the built-in calendar.</p>
+      <ul class="hero-list">
+        <li><span class="ms">draw</span> Whiteboard with live video alongside</li>
+        <li><span class="ms">attach_file</span> Share files during the call</li>
+        <li><span class="ms">calendar_month</span> Schedule calls and get a join link</li>
+        <li><span class="ms">forum</span> Private chats</li>
+      </ul>
+    </section>
+
+    <section class="auth-card">
+      <!-- Step 1: sign in / sign up -->
+      <div id="stepAuth">
+        <div class="tabs">
+          <button class="tab active" data-tab="signin">Sign in</button>
+          <button class="tab" data-tab="signup">Create account</button>
+        </div>
+
+        <form id="signinForm" class="stack">
+          <h2>Welcome back</h2>
+          <label class="field"><span>Email</span><input type="email" id="siEmail" placeholder="you@example.com" required autocomplete="email"></label>
+          <label class="field"><span>Password</span><input type="password" id="siPass" placeholder="Your password" required autocomplete="current-password"></label>
+          <p class="err" id="siErr" hidden></p>
+          <button class="btn primary wide" type="submit">Sign in</button>
+        </form>
+
+        <form id="signupForm" class="stack" hidden>
+          <h2>Create your account</h2>
+          <label class="field"><span>Full name</span><input id="suName" placeholder="Your name" required autocomplete="name"></label>
+          <label class="field"><span>Email</span><input type="email" id="suEmail" placeholder="you@example.com" required autocomplete="email"></label>
+          <label class="field"><span>Password</span><input type="password" id="suPass" placeholder="At least 6 characters" minlength="6" required autocomplete="new-password"></label>
+          <p class="err" id="suErr" hidden></p>
+          <button class="btn primary wide" type="submit">Send verification code</button>
+          <p class="hint">We'll email a 6-digit code to confirm it's really you.</p>
+        </form>
+      </div>
+
+      <!-- Step 2: email verification -->
+      <div id="stepOtp" class="stack" hidden>
+        <button class="btn ghost small" id="otpBack"><span class="ms">arrow_back</span> Back</button>
+        <h2>Check your email</h2>
+        <p class="hint" id="otpMsg"></p>
+        <div class="otp-row" id="otpRow">
+          <input maxlength="1" inputmode="numeric" autocomplete="one-time-code"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric">
+          <input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric"><input maxlength="1" inputmode="numeric">
+        </div>
+        <p class="err" id="otpErr" hidden></p>
+        <button class="btn primary wide" id="otpBtn">Verify and continue</button>
+        <button class="btn ghost wide" id="resendBtn" disabled>Resend code</button>
+      </div>
+    </section>
+  </div>
+  <script src="/js/common.js"></script>
+  <script src="/js/login.js"></script>
+</body>
+</html>

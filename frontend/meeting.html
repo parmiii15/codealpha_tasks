@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meetly – Meeting</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/meeting.css">
+</head>
+<body class="meet-body">
+
+  <!-- Lobby (before joining) -->
+  <div id="lobby" class="lobby">
+    <div class="lobby-card">
+      <div class="preview">
+        <video id="preview" autoplay muted playsinline></video>
+        <div class="preview-off" id="previewOff"></div>
+        <div class="preview-ctrl">
+          <button class="rbtn" id="lMic"><span class="ms">mic</span></button>
+          <button class="rbtn" id="lCam"><span class="ms">videocam</span></button>
+        </div>
+      </div>
+      <div class="lobby-info">
+        <h2 id="lTitle">Ready to join?</h2>
+        <p class="hint" id="lCode"></p>
+        <p class="err" id="lErr" hidden></p>
+        <div class="row">
+          <button class="btn primary big" id="joinNow" disabled><span class="ms">videocam</span>Join now</button>
+          <a class="btn outline big" href="/">Back</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Room -->
+  <div id="room" class="room" hidden>
+    <div class="stage">
+      <div class="main" id="main">
+        <div class="wb" id="wbWrap" hidden>
+          <div class="wb-tools">
+            <button class="wt on" id="toolPen" title="Pen"><span class="ms">draw</span></button>
+            <button class="wt" id="toolEraser" title="Eraser"><span class="ms">ink_eraser</span></button>
+            <span class="sep"></span>
+            <div id="wbColors"></div>
+            <span class="sep"></span>
+            <input type="range" id="wbSize" min="2" max="24" value="4" title="Brush size">
+            <span class="sep"></span>
+            <button class="wt" id="wbClear" title="Clear board"><span class="ms">delete_sweep</span></button>
+            <button class="wt" id="wbSave" title="Download as image"><span class="ms">download</span></button>
+          </div>
+          <div class="wb-canvas" id="wbBox"><canvas id="wbCanvas"></canvas></div>
+        </div>
+        <div class="grid" id="grid"></div>
+      </div>
+
+      <aside class="panel" id="panel" hidden>
+        <div class="panel-head">
+          <div class="ptabs">
+            <button class="ptab on" data-tab="chat">Chat</button>
+            <button class="ptab" data-tab="people">People</button>
+            <button class="ptab" data-tab="files">Files</button>
+          </div>
+          <button class="icon-btn" id="panelClose" aria-label="Close"><span class="ms">close</span></button>
+        </div>
+        <div class="pbody" id="tabChat">
+          <div class="pmsgs" id="cmsgs"></div>
+          <div class="cform">
+            <button class="icon-btn" id="cAttach" aria-label="Share a file"><span class="ms">attach_file</span></button>
+            <input type="file" id="cFile" hidden>
+            <input id="cInput" placeholder="Message everyone" autocomplete="off">
+            <button class="send-btn" id="cSend" aria-label="Send"><span class="ms">send</span></button>
+          </div>
+        </div>
+        <div class="pbody" id="tabPeople" hidden><div class="plist" id="plist"></div></div>
+        <div class="pbody" id="tabFiles" hidden>
+          <div class="plist" id="flist"></div>
+          <div class="cform"><button class="btn primary wide" id="cShare"><span class="ms">upload_file</span>Share a file</button></div>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="bar">
+      <div class="bar-left"><span id="timer">0:00</span><span class="sep"></span><span id="codeText"></span>
+        <button class="icon-btn light" id="copyLink" title="Copy meeting link"><span class="ms">content_copy</span></button></div>
+      <div class="bar-mid">
+        <button class="rbtn" id="bMic" title="Microphone"><span class="ms">mic</span></button>
+        <button class="rbtn" id="bCam" title="Camera"><span class="ms">videocam</span></button>
+        <button class="rbtn" id="bShare" title="Present screen"><span class="ms">present_to_all</span></button>
+        <button class="rbtn" id="bBoard" title="Whiteboard"><span class="ms">draw</span><i class="dot-badge" id="boardDot" hidden></i></button>
+        <button class="rbtn leave" id="bLeave" title="Leave call"><span class="ms">call_end</span></button>
+      </div>
+      <div class="bar-right">
+        <button class="rbtn flat" id="bPeople" title="People"><span class="ms">group</span><small id="pCount">1</small></button>
+        <button class="rbtn flat" id="bChat" title="Chat"><span class="ms">chat</span><i class="dot-badge" id="chatDot" hidden></i></button>
+        <button class="rbtn flat" id="bFiles" title="Files"><span class="ms">folder</span></button>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/common.js"></script>
+  <script src="/js/meeting.js"></script>
+</body>
+</html>

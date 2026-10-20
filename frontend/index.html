@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meetly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="app">
+  <header class="topbar">
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu"><span class="ms">menu</span></button>
+    <a class="logo" href="#meetings"><span class="logo-mark"><span class="ms">videocam</span></span><span class="logo-text">Meetly</span></a>
+
+    <div class="join-bar">
+      <div class="join-input">
+        <span class="ms">keyboard</span>
+        <input id="joinInput" placeholder="Enter a code or link" autocomplete="off">
+        <button id="joinBtn" disabled>Join</button>
+      </div>
+      <div class="menu-wrap">
+        <button class="btn tonal" id="newBtn"><span class="ms">video_call</span><span class="lbl">New</span></button>
+        <div class="dropdown" id="newMenu" hidden>
+          <button data-act="instant"><span class="ms">videocam</span>Start an instant meeting</button>
+          <button data-act="later"><span class="ms">add_link</span>Create a meeting link for later</button>
+          <button data-act="schedule"><span class="ms">event</span>Schedule in Calendar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="top-right">
+      <span class="clock" id="clock"></span>
+      <div class="menu-wrap">
+        <button class="av-btn" id="avBtn" aria-label="Account"></button>
+        <div class="dropdown right" id="userMenu" hidden>
+          <button data-go="profile"><span class="ms">person</span>My profile</button>
+          <button id="logoutBtn"><span class="ms">logout</span>Sign out</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="side" id="side">
+      <a href="#meetings" data-view="meetings"><span class="pill"><span class="ms">videocam</span></span>Meetings</a>
+      <a href="#calendar" data-view="calendar"><span class="pill"><span class="ms">calendar_month</span></span>Calendar</a>
+      <a href="#history" data-view="history"><span class="pill"><span class="ms">history</span></span>History</a>
+      <a href="#chats" data-view="chats"><span class="pill"><span class="ms">forum</span><i class="dot-badge" id="chatBadge" hidden></i></span>Chats</a>
+      <a href="#profile" data-view="profile"><span class="pill"><span class="ms">account_circle</span></span>Profile</a>
+    </nav>
+
+    <main class="main">
+      <!-- MEETINGS -->
+      <section class="view" id="view-meetings">
+        <div class="hero">
+          <div class="hero-text">
+            <h1>Video calls with a whiteboard, files and chat built in</h1>
+            <p>Start a meeting in one click, or schedule one and share the link. Everyone stays on video while you draw together.</p>
+            <div class="hero-actions">
+              <button class="btn primary big" id="heroNew"><span class="ms">video_call</span>New meeting</button>
+              <button class="btn outline big" id="heroSchedule"><span class="ms">event</span>Schedule</button>
+            </div>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <div class="mock">
+              <div class="mock-tiles"><i style="background:#1a73e8">A</i><i style="background:#e8710a">R</i><i style="background:#188038">S</i></div>
+              <div class="mock-board"><svg viewBox="0 0 200 110"><path d="M10 80 C40 10, 70 110, 100 50 S160 20, 190 70" fill="none" stroke="#1a73e8" stroke-width="5" stroke-linecap="round"/><circle cx="60" cy="30" r="14" fill="none" stroke="#d93025" stroke-width="4"/></svg></div>
+            </div>
+          </div>
+        </div>
+        <h3 class="section-title">Upcoming meetings</h3>
+        <div id="upcoming" class="list"></div>
+      </section>
+
+      <!-- CALENDAR -->
+      <section class="view" id="view-calendar" hidden>
+        <div class="view-head">
+          <h2 id="calTitle"></h2>
+          <div class="row">
+            <button class="icon-btn" id="calPrev" aria-label="Previous month"><span class="ms">chevron_left</span></button>
+            <button class="btn outline small" id="calToday">Today</button>
+            <button class="icon-btn" id="calNext" aria-label="Next month"><span class="ms">chevron_right</span></button>
+            <button class="btn primary" id="calAdd"><span class="ms">add</span>Schedule</button>
+          </div>
+        </div>
+        <div class="cal-head"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+        <div class="cal-grid" id="calGrid"></div>
+      </section>
+
+      <!-- HISTORY -->
+      <section class="view" id="view-history" hidden>
+        <div class="view-head">
+          <h2>Call history</h2>
+          <button class="btn outline" id="clearHist"><span class="ms">delete_sweep</span>Clear all</button>
+        </div>
+        <div id="histList" class="list"></div>
+      </section>
+
+      <!-- CHATS -->
+      <section class="view chats" id="view-chats" hidden>
+        <aside class="chat-side">
+          <div class="chat-search"><span class="ms">search</span><input id="chatSearch" placeholder="Search people by name or email"></div>
+          <div id="chatList" class="chat-list"></div>
+        </aside>
+        <div class="chat-pane" id="chatPane">
+          <div class="chat-empty" id="chatEmpty"><span class="ms">forum</span><h3>Your messages</h3><p>Pick a conversation or search for someone to start chatting.</p></div>
+          <div class="chat-box" id="chatBox" hidden>
+            <div class="chat-top">
+              <button class="icon-btn back-btn" id="chatBack" aria-label="Back"><span class="ms">arrow_back</span></button>
+              <div id="chatWho" class="who"></div>
+              <button class="icon-btn" id="chatCall" title="Start a video call"><span class="ms">videocam</span></button>
+            </div>
+            <div class="msgs" id="msgs"></div>
+            <div class="composer">
+              <div class="emoji-pop" id="emojiPop" hidden></div>
+              <button class="icon-btn" id="emojiBtn" aria-label="Emoji"><span class="ms">mood</span></button>
+              <button class="icon-btn" id="attachBtn" aria-label="Attach file"><span class="ms">attach_file</span></button>
+              <input type="file" id="fileInput" hidden>
+              <input id="msgInput" placeholder="Write a message" autocomplete="off">
+              <button class="send-btn" id="sendBtn" aria-label="Send"><span class="ms">send</span></button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROFILE -->
+      <section class="view" id="view-profile" hidden>
+        <div class="profile-card" id="profileCard"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="modalRoot"></div>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/common.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
